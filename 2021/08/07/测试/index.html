@@ -304,13 +304,11 @@ var gitalk = new Gitalk({
   repo: 'zhuchaoli.github.io',
   owner: 'zhuchaoli',
   admin: ['zhuchaoli'],
-  id: location.pathname,      
+  id: decodeURI(location.pathname),      
   distractionFreeMode: false 
 })
 gitalk.render('gitalk-container')
 </script>
-
-
 
   
 
