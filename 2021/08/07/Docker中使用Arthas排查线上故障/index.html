@@ -6,20 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Java缓存框架JetCache介绍和使用 | 小朱IT博客</title>
+  <title>Docker中使用Arthas排查线上故障 | 小朱IT博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、简介JetCache是一个基于Java的缓存系统封装，提供统一的API和注解来简化缓存的使用。 JetCache提供了比SpringCache更加强大的注解，可以原生的支持TTL、两级缓存、分布式自动刷新，还提供了Cache接口用于手工缓存操作。">
+  <meta name="description" content="Arthas能为你做什么？Arthas 是Alibaba开源的Java诊断工具，深受开发者喜爱。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java缓存框架JetCache介绍和使用">
-<meta property="og:url" content="http://example.com/2021/08/07/Java%E7%BC%93%E5%AD%98%E6%A1%86%E6%9E%B6JetCache%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:title" content="Docker中使用Arthas排查线上故障">
+<meta property="og:url" content="http://example.com/2021/08/07/Docker%E4%B8%AD%E4%BD%BF%E7%94%A8Arthas%E6%8E%92%E6%9F%A5%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C/index.html">
 <meta property="og:site_name" content="小朱IT博客">
-<meta property="og:description" content="一、简介JetCache是一个基于Java的缓存系统封装，提供统一的API和注解来简化缓存的使用。 JetCache提供了比SpringCache更加强大的注解，可以原生的支持TTL、两级缓存、分布式自动刷新，还提供了Cache接口用于手工缓存操作。">
+<meta property="og:description" content="Arthas能为你做什么？Arthas 是Alibaba开源的Java诊断工具，深受开发者喜爱。">
 <meta property="og:locale">
-<meta property="article:published_time" content="2021-08-06T17:15:24.000Z">
-<meta property="article:modified_time" content="2021-08-06T18:11:18.073Z">
+<meta property="og:image" content="https://p.pstatp.com/origin/pgc-image/91a4596505224aeaa5836f18d180f754">
+<meta property="og:image" content="https://p.pstatp.com/origin/pgc-image/643ca064e703417f92b4650c2d430d5d">
+<meta property="article:published_time" content="2021-08-07T08:34:00.000Z">
+<meta property="article:modified_time" content="2021-08-07T10:56:47.763Z">
 <meta property="article:author" content="小朱">
-<meta property="article:tag" content="JetCache">
+<meta property="article:tag" content="Arthas">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p.pstatp.com/origin/pgc-image/91a4596505224aeaa5836f18d180f754">
   
     <link rel="alternative" href="/atom.xml" title="小朱IT博客" type="application/atom+xml">
   
@@ -151,327 +154,59 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Java缓存框架JetCache介绍和使用" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Docker中使用Arthas排查线上故障" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Java缓存框架JetCache介绍和使用
+      Docker中使用Arthas排查线上故障
     </h1>
   
 
         
-        <a href="/2021/08/07/Java%E7%BC%93%E5%AD%98%E6%A1%86%E6%9E%B6JetCache%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2021-08-06T17:15:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-07</time>
+        <a href="/2021/08/07/Docker%E4%B8%AD%E4%BD%BF%E7%94%A8Arthas%E6%8E%92%E6%9F%A5%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C/" class="archive-article-date">
+  	<time datetime="2021-08-07T08:34:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><p>JetCache是一个基于Java的缓存系统封装，提供统一的API和注解来简化缓存的使用。 JetCache提供了比SpringCache更加强大的注解，可以原生的支持TTL、两级缓存、分布式自动刷新，还提供了<code>Cache</code>接口用于手工缓存操作。<span id="more"></span> </p>
-<p>当前有四个实现，<code>RedisCache</code>、<code>TairCache</code>、<code>CaffeineCache</code>和一个简易的<code>LinkedHashMapCache</code>，要添加新的实现也是非常简单的。</p>
-<p>全部特性:</p>
-<ul>
-<li><p>通过统一的API访问Cache系统</p>
-</li>
-<li><p>通过注解实现声明式的方法缓存，支持TTL和两级缓存</p>
-</li>
-<li><p>通过注解创建并配置<code>Cache</code>实例</p>
-</li>
-<li><p>针对所有<code>Cache</code>实例和方法缓存的自动统计</p>
-</li>
-<li><p>Key的生成策略和Value的序列化策略是可以配置的</p>
-</li>
-<li><p>分布式缓存自动刷新，分布式锁 (2.2+)</p>
-</li>
-<li><p>异步Cache API (2.2+，使用Redis的lettuce客户端时)</p>
-</li>
-<li><p>Spring Boot支持</p>
-</li>
-</ul>
-<h1 id="二、环境要求"><a href="#二、环境要求" class="headerlink" title="二、环境要求"></a>二、环境要求</h1><p>JetCache需要JDK1.8、Spring Framework4.0.8以上版本。</p>
-<p>Spring Boot为可选，需要1.1.9以上版本。</p>
-<p>如果不使用注解（仅使用jetcache-core），Spring Framework也是可选的。</p>
-<h1 id="三、方法缓存"><a href="#三、方法缓存" class="headerlink" title="三、方法缓存"></a>三、方法缓存</h1><p>JetCache方法缓存原生提供了TTL支持，以保证最终一致，并且支持二级缓存。JetCache2.4以后支持基于注解的缓存更新和删除。</p>
-<p>@Cached注解可以为一个方法添加缓存，@CacheUpdate用于更新缓存，@CacheInvalidate用于移除缓存元素。注解可以加在接口上也可以加在类上，加注解的类必须是一个spring bean</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Cached(name=&quot;userCache.&quot;, key=&quot;#userId&quot;, expire = 3600)</span></span><br><span class="line">    <span class="function">User <span class="title">getUserById</span><span class="params">(<span class="keyword">long</span> userId)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@CacheUpdate(name=&quot;userCache.&quot;, key=&quot;#user.userId&quot;, value=&quot;#user&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">updateUser</span><span class="params">(User user)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@CacheInvalidate(name=&quot;userCache.&quot;, key=&quot;#userId&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">deleteUser</span><span class="params">(<span class="keyword">long</span> userId)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="Arthas能为你做什么？"><a href="#Arthas能为你做什么？" class="headerlink" title="Arthas能为你做什么？"></a>Arthas能为你做什么？</h1><p><code>Arthas</code> 是Alibaba开源的Java诊断工具，深受开发者喜爱。<span id="more"></span></p>
+<p>当你遇到以下类似问题而束手无策时，<code>Arthas</code>可以帮助你解决：</p>
+<ol>
+<li>这个类从哪个 jar 包加载的？为什么会报各种类相关的 Exception？</li>
+<li>我改的代码为什么没有执行到？难道是我没 commit？分支搞错了？</li>
+<li>遇到问题无法在线上 debug，难道只能通过加日志再重新发布吗？</li>
+<li>线上遇到某个用户的数据处理有问题，但线上同样无法 debug，线下无法重现！</li>
+<li>是否有一个全局视角来查看系统的运行状况？</li>
+<li>有什么办法可以监控到JVM的实时运行状态？</li>
+<li>怎么快速定位应用的热点，生成火焰图？</li>
+<li>怎样直接从JVM内查找某个类的实例？</li>
+</ol>
+<p><code>Arthas</code>支持JDK 6+，支持Linux/Mac/Windows，采用命令行交互模式，同时提供丰富的 <code>Tab</code> 自动补全功能，进一步方便进行问题的定位和诊断。</p>
+<h1 id="在Docker中使用Arthas"><a href="#在Docker中使用Arthas" class="headerlink" title="在Docker中使用Arthas"></a>在Docker中使用Arthas</h1><p>很多时候，应用在docker里出现arthas无法工作的问题，是因为应用没有安装 JDK ，而是安装了 JRE 。如果只安装了 JRE，则会缺少很多JAVA的命令行工具和类库，Arthas也没办法正常工作。所以需要更换JDK。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> openjdk:<span class="number">8</span>-jdk</span><br></pre></td></tr></table></figure>
 
-<p>key使用Spring的SpEL脚本来指定。比如这里的<code>key=&quot;#userId&quot;</code>,<code>key=&quot;#user.userId&quot;</code></p>
-<h2 id="Cached"><a href="#Cached" class="headerlink" title="@Cached"></a>@Cached</h2><table>
-<thead>
-<tr>
-<th>属性</th>
-<th>默认值</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>area</td>
-<td>“default”</td>
-<td>如果在配置中配置了多个缓存area，在这里指定使用哪个area</td>
-</tr>
-<tr>
-<td>name</td>
-<td>未定义</td>
-<td>指定缓存的唯一名称，不是必须的，如果没有指定，会使用类名+方法名。name会被用于远程缓存的key前缀。另外在统计中，一个简短有意义的名字会提高可读性。</td>
-</tr>
-<tr>
-<td>key</td>
-<td>未定义</td>
-<td>使用SpEL指定key，如果没有指定会根据所有参数自动生成。</td>
-</tr>
-<tr>
-<td>expire</td>
-<td>未定义</td>
-<td>超时时间。如果注解上没有定义，会使用全局配置，如果此时全局配置也没有定义，则为无穷大</td>
-</tr>
-<tr>
-<td>timeUnit</td>
-<td>TimeUnit.SECONDS</td>
-<td>指定expire的单位</td>
-</tr>
-<tr>
-<td>cacheType</td>
-<td>CacheType.REMOTE</td>
-<td>缓存的类型，包括CacheType.REMOTE、CacheType.LOCAL、CacheType.BOTH。如果定义为BOTH，会使用LOCAL和REMOTE组合成两级缓存</td>
-</tr>
-<tr>
-<td>localLimit</td>
-<td>未定义</td>
-<td>如果cacheType为LOCAL或BOTH，这个参数指定本地缓存的最大元素数量，以控制内存占用。如果注解上没有定义，会使用全局配置，如果此时全局配置也没有定义，则为100</td>
-</tr>
-<tr>
-<td>localExpire</td>
-<td>未定义</td>
-<td>仅当cacheType为BOTH时适用，为内存中的Cache指定一个不一样的超时时间，通常应该小于expire</td>
-</tr>
-<tr>
-<td>serialPolicy</td>
-<td>未定义</td>
-<td>指定远程缓存的序列化方式。可选值为SerialPolicy.JAVA和SerialPolicy.KRYO。如果注解上没有定义，会使用全局配置，如果此时全局配置也没有定义，则为SerialPolicy.JAVA</td>
-</tr>
-<tr>
-<td>keyConvertor</td>
-<td>未定义</td>
-<td>指定KEY的转换方式，用于将复杂的KEY类型转换为缓存实现可以接受的类型，当前支持KeyConvertor.FASTJSON和KeyConvertor.NONE。NONE表示不转换，FASTJSON可以将复杂对象KEY转换成String。如果注解上没有定义，会使用全局配置。</td>
-</tr>
-<tr>
-<td>enabled</td>
-<td>TRUE</td>
-<td>是否激活缓存。例如某个dao方法上加缓存注解，由于某些调用场景下不能有缓存，所以可以设置enabled为false，正常调用不会使用缓存，在需要的地方可使用CacheContext.enableCache在回调中激活缓存，缓存激活的标记在ThreadLocal上，该标记被设置后，所有enable=false的缓存都被激活</td>
-</tr>
-<tr>
-<td>cacheNullValue</td>
-<td>FALSE</td>
-<td>当方法返回值为null的时候是否要缓存</td>
-</tr>
-<tr>
-<td>condition</td>
-<td>未定义</td>
-<td>使用SpEL指定条件，如果表达式返回true的时候才去缓存中查询</td>
-</tr>
-<tr>
-<td>postCondition</td>
-<td>未定义</td>
-<td>使用SpEL指定条件，如果表达式返回true的时候才更新缓存，该评估在方法执行后进行，因此可以访问到#result</td>
-</tr>
-</tbody></table>
-<h2 id="CacheUpdate"><a href="#CacheUpdate" class="headerlink" title="@CacheUpdate"></a>@CacheUpdate</h2><table>
-<thead>
-<tr>
-<th>属性</th>
-<th>默认值</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>area</td>
-<td>“default”</td>
-<td>如果在配置中配置了多个缓存area，在这里指定使用哪个area，指向对应的@Cached定义。</td>
-</tr>
-<tr>
-<td>name</td>
-<td>未定义</td>
-<td>指定缓存的唯一名称，指向对应的@Cached定义。</td>
-</tr>
-<tr>
-<td>key</td>
-<td>未定义</td>
-<td>使用SpEL指定key</td>
-</tr>
-<tr>
-<td>value</td>
-<td>未定义</td>
-<td>使用SpEL指定value</td>
-</tr>
-<tr>
-<td>condition</td>
-<td>未定义</td>
-<td>使用SpEL指定条件，如果表达式返回true才执行更新，可访问方法结果#result</td>
-</tr>
-</tbody></table>
-<h2 id="CacheInvalidate"><a href="#CacheInvalidate" class="headerlink" title="@CacheInvalidate"></a>@CacheInvalidate</h2><table>
-<thead>
-<tr>
-<th>属性</th>
-<th>默认值</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>area</td>
-<td>“default”</td>
-<td>如果在配置中配置了多个缓存area，在这里指定使用哪个area，指向对应的@Cached定义。</td>
-</tr>
-<tr>
-<td>name</td>
-<td>未定义</td>
-<td>指定缓存的唯一名称，指向对应的@Cached定义。</td>
-</tr>
-<tr>
-<td>key</td>
-<td>未定义</td>
-<td>使用SpEL指定key</td>
-</tr>
-<tr>
-<td>condition</td>
-<td>未定义</td>
-<td>使用SpEL指定条件，如果表达式返回true才执行删除，可访问方法结果#result</td>
-</tr>
-</tbody></table>
-<p>使用@CacheUpdate和@CacheInvalidate的时候，相关的缓存操作可能会失败（比如网络IO错误），所以指定缓存的超时时间是非常重要的。</p>
-<h1 id="四、创建缓存实例"><a href="#四、创建缓存实例" class="headerlink" title="四、创建缓存实例"></a>四、创建缓存实例</h1><p>通过@CreateCache注解创建一个缓存实例，默认超时时间是100秒</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@CreateCache(expire = 100)</span></span><br><span class="line"><span class="keyword">private</span> Cache&lt;Long, UserDO&gt; userCache;</span><br></pre></td></tr></table></figure>
+<p>或者：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> openjdk:<span class="number">8</span>-jdk-alpine</span><br></pre></td></tr></table></figure>
 
-<p>用起来就像map一样</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UserDO user = userCache.get(<span class="number">123L</span>);</span><br><span class="line">userCache.put(<span class="number">123L</span>, user);</span><br><span class="line">userCache.remove(<span class="number">123L</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="提供三种使用Arthas的方式"><a href="#提供三种使用Arthas的方式" class="headerlink" title="提供三种使用Arthas的方式"></a>提供三种使用Arthas的方式</h2><h3 id="诊断Docker里的Java进程"><a href="#诊断Docker里的Java进程" class="headerlink" title="诊断Docker里的Java进程"></a>诊断Docker里的Java进程</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it  $&#123;containerId&#125; /bin/bash -c &quot;wget https://arthas.aliyun.com/arthas-boot.jar &amp;&amp; java -jar arthas-boot.jar&quot;</span><br></pre></td></tr></table></figure>
 
-<p>创建一个两级（内存+远程）的缓存，内存中的元素个数限制在50个。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@CreateCache(name = &quot;UserService.userCache&quot;, expire = 100, cacheType = CacheType.BOTH, localLimit = 50)</span></span><br><span class="line"><span class="keyword">private</span> Cache&lt;Long, UserDO&gt; userCache;</span><br></pre></td></tr></table></figure>
+<h3 id="诊断k8s里容器里的Java进程"><a href="#诊断k8s里容器里的Java进程" class="headerlink" title="诊断k8s里容器里的Java进程"></a>诊断k8s里容器里的Java进程</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl exec -it $&#123;pod&#125; --container $&#123;containerId&#125; -- /bin/bash -c &quot;wget https://arthas.aliyun.com/arthas-boot.jar &amp;&amp; java -jar arthas-boot.jar&quot;</span><br></pre></td></tr></table></figure>
 
-<h2 id="CreateCache"><a href="#CreateCache" class="headerlink" title="@CreateCache"></a>@CreateCache</h2><table>
-<thead>
-<tr>
-<th>属性</th>
-<th>默认值</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>area</td>
-<td>“default”</td>
-<td>如果需要连接多个缓存系统，可在配置多个cache area，这个属性指定要使用的那个area的name</td>
-</tr>
-<tr>
-<td>name</td>
-<td>未定义</td>
-<td>指定缓存的名称，不是必须的，如果没有指定，会使用类名+方法名。name会被用于远程缓存的key前缀。另外在统计中，一个简短有意义的名字会提高可读性。如果两个@CreateCache的name和area相同，它们会指向同一个Cache实例</td>
-</tr>
-<tr>
-<td>expire</td>
-<td>未定义</td>
-<td>该Cache实例的默认超时时间定义，注解上没有定义的时候会使用全局配置，如果此时全局配置也没有定义，则取无穷大</td>
-</tr>
-<tr>
-<td>timeUnit</td>
-<td>TimeUnit.SECONDS</td>
-<td>指定expire的单位</td>
-</tr>
-<tr>
-<td>cacheType</td>
-<td>CacheType.REMOTE</td>
-<td>缓存的类型，包括CacheType.REMOTE、CacheType.LOCAL、CacheType.BOTH。如果定义为BOTH，会使用LOCAL和REMOTE组合成两级缓存</td>
-</tr>
-<tr>
-<td>localLimit</td>
-<td>未定义</td>
-<td>如果cacheType为CacheType.LOCAL或CacheType.BOTH，这个参数指定本地缓存的最大元素数量，以控制内存占用。注解上没有定义的时候会使用全局配置，如果此时全局配置也没有定义，则取100</td>
-</tr>
-<tr>
-<td>serialPolicy</td>
-<td>未定义</td>
-<td>如果cacheType为CacheType.REMOTE或CacheType.BOTH，指定远程缓存的序列化方式。JetCache内置的可选值为SerialPolicy.JAVA和SerialPolicy.KRYO。注解上没有定义的时候会使用全局配置，如果此时全局配置也没有定义，则取SerialPolicy.JAVA</td>
-</tr>
-<tr>
-<td>keyConvertor</td>
-<td>未定义</td>
-<td>指定KEY的转换方式，用于将复杂的KEY类型转换为缓存实现可以接受的类型，JetCache内置的可选值为KeyConvertor.FASTJSON和KeyConvertor.NONE。NONE表示不转换，FASTJSON通过fastjson将复杂对象KEY转换成String。如果注解上没有定义，则使用全局配置。</td>
-</tr>
-</tbody></table>
-<h1 id="五、配置详解"><a href="#五、配置详解" class="headerlink" title="五、配置详解"></a>五、配置详解</h1><p>配置文件案例</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jetcache:</span></span><br><span class="line">  <span class="attr">statIntervalMinutes:</span> <span class="number">15</span></span><br><span class="line">  <span class="attr">areaInCacheName:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">hidePackages:</span> <span class="string">com.alibaba</span></span><br><span class="line">  <span class="attr">local:</span></span><br><span class="line">    <span class="attr">default:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">caffeine</span></span><br><span class="line">      <span class="attr">limit:</span> <span class="number">100</span></span><br><span class="line">      <span class="attr">keyConvertor:</span> <span class="string">fastjson</span></span><br><span class="line">      <span class="attr">expireAfterWriteInMillis:</span> <span class="number">100000</span></span><br><span class="line">    <span class="attr">otherArea:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">linkedhashmap</span></span><br><span class="line">      <span class="attr">limit:</span> <span class="number">100</span></span><br><span class="line">      <span class="attr">keyConvertor:</span> <span class="string">none</span></span><br><span class="line">      <span class="attr">expireAfterWriteInMillis:</span> <span class="number">100000</span></span><br><span class="line">  <span class="attr">remote:</span></span><br><span class="line">    <span class="attr">default:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">redis</span></span><br><span class="line">      <span class="attr">keyConvertor:</span> <span class="string">fastjson</span></span><br><span class="line">      <span class="attr">valueEncoder:</span> <span class="string">java</span></span><br><span class="line">      <span class="attr">valueDecoder:</span> <span class="string">java</span></span><br><span class="line">      <span class="attr">poolConfig:</span></span><br><span class="line">        <span class="attr">minIdle:</span> <span class="number">5</span></span><br><span class="line">        <span class="attr">maxIdle:</span> <span class="number">20</span></span><br><span class="line">        <span class="attr">maxTotal:</span> <span class="number">50</span></span><br><span class="line">      <span class="attr">host:</span> <span class="string">$&#123;redis.host&#125;</span></span><br><span class="line">      <span class="attr">port:</span> <span class="string">$&#123;redis.port&#125;</span></span><br><span class="line">    <span class="attr">otherArea:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">redis</span></span><br><span class="line">      <span class="attr">keyConvertor:</span> <span class="string">fastjson</span></span><br><span class="line">      <span class="attr">valueEncoder:</span> <span class="string">kryo</span></span><br><span class="line">      <span class="attr">valueDecoder:</span> <span class="string">kryo</span></span><br><span class="line">      <span class="attr">poolConfig:</span></span><br><span class="line">        <span class="attr">minIdle:</span> <span class="number">5</span></span><br><span class="line">        <span class="attr">maxIdle:</span> <span class="number">20</span></span><br><span class="line">        <span class="attr">maxTotal:</span> <span class="number">50</span></span><br><span class="line">      <span class="attr">host:</span> <span class="string">$&#123;redis.host&#125;</span></span><br><span class="line">      <span class="attr">port:</span> <span class="string">$&#123;redis.port&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="把Arthas安装到基础镜像里"><a href="#把Arthas安装到基础镜像里" class="headerlink" title="把Arthas安装到基础镜像里"></a>把Arthas安装到基础镜像里</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> openjdk:<span class="number">8</span>-jdk-alpine</span><br><span class="line"></span><br><span class="line"><span class="comment"># copy arthas</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=hengyunabc/arthas:latest /opt/arthas /opt/arthas</span></span><br></pre></td></tr></table></figure>
 
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th>默认值</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>jetcache.statIntervalMinutes</td>
-<td>0</td>
-<td>统计间隔，0表示不统计</td>
-</tr>
-<tr>
-<td>jetcache.areaInCacheName</td>
-<td>TRUE</td>
-<td>jetcache-anno把cacheName作为远程缓存key前缀，2.4.3以前的版本总是把areaName加在cacheName中，因此areaName也出现在key前缀中。2.4.4以后可以配置，为了保持远程key兼容默认值为true，但是新项目的话false更合理些。</td>
-</tr>
-<tr>
-<td>jetcache.hiddenPackages</td>
-<td>无</td>
-<td>@Cached和@CreateCache自动生成name的时候，为了不让name太长，hiddenPackages指定的包名前缀被截掉</td>
-</tr>
-<tr>
-<td>jetcache.[local|remote].${area}.type</td>
-<td>无</td>
-<td>缓存类型。tair、redis为当前支持的远程缓存；linkedhashmap、caffeine为当前支持的本地缓存类型</td>
-</tr>
-<tr>
-<td>jetcache.[local|remote].${area}.keyConvertor</td>
-<td>无</td>
-<td>key转换器的全局配置，当前只有一个已经实现的keyConvertor：fastjson。仅当使用@CreateCache且缓存类型为LOCAL时可以指定为none，此时通过equals方法来识别key。方法缓存必须指定keyConvertor</td>
-</tr>
-<tr>
-<td>jetcache.[local|remote].${area}.valueEncoder</td>
-<td>java</td>
-<td>序列化器的全局配置。仅remote类型的缓存需要指定，可选java和kryo</td>
-</tr>
-<tr>
-<td>jetcache.[local|remote].${area}.valueDecoder</td>
-<td>java</td>
-<td>序列化器的全局配置。仅remote类型的缓存需要指定，可选java和kryo</td>
-</tr>
-<tr>
-<td>jetcache.[local|remote].${area}.limit</td>
-<td>100</td>
-<td>每个缓存实例的最大元素的全局配置，仅local类型的缓存需要指定。注意是每个缓存实例的限制，而不是全部，比如这里指定100，然后用@CreateCache创建了两个缓存实例（并且注解上没有设置localLimit属性），那么每个缓存实例的限制都是100</td>
-</tr>
-<tr>
-<td>jetcache.[local|remote].${area}.expireAfterWriteInMillis</td>
-<td>无穷大</td>
-<td>以毫秒为单位指定超时时间的全局配置(以前为defaultExpireInMillis)</td>
-</tr>
-<tr>
-<td>jetcache.local.${area}.expireAfterAccessInMillis</td>
-<td>0</td>
-<td>需要jetcache2.2以上，以毫秒为单位，指定多长时间没有访问，就让缓存失效，当前只有本地缓存支持。0表示不使用这个功能。</td>
-</tr>
-</tbody></table>
-<p>${area}对应@Cached和@CreateCache的area属性。注意如果注解上没有指定area，默认是”default”。</p>
-<h1 id="六、快速上手"><a href="#六、快速上手" class="headerlink" title="六、快速上手"></a>六、快速上手</h1><h2 id="POM"><a href="#POM" class="headerlink" title="POM"></a>POM</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alicp.jetcache<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jetcache-starter-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5.14<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="application-yml"><a href="#application-yml" class="headerlink" title="application.yml"></a>application.yml</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jetcache:</span></span><br><span class="line">  <span class="attr">statIntervalMinutes:</span> <span class="number">15</span></span><br><span class="line">  <span class="attr">areaInCacheName:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">local:</span></span><br><span class="line">    <span class="attr">default:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">linkedhashmap</span></span><br><span class="line">      <span class="attr">keyConvertor:</span> <span class="string">fastjson</span></span><br><span class="line">  <span class="attr">remote:</span></span><br><span class="line">    <span class="attr">default:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">redis</span></span><br><span class="line">      <span class="attr">keyConvertor:</span> <span class="string">fastjson</span></span><br><span class="line">      <span class="attr">valueEncoder:</span> <span class="string">java</span></span><br><span class="line">      <span class="attr">valueDecoder:</span> <span class="string">java</span></span><br><span class="line">      <span class="attr">poolConfig:</span></span><br><span class="line">        <span class="attr">minIdle:</span> <span class="number">5</span></span><br><span class="line">        <span class="attr">maxIdle:</span> <span class="number">20</span></span><br><span class="line">        <span class="attr">maxTotal:</span> <span class="number">50</span></span><br><span class="line">      <span class="attr">host:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">6379</span></span><br><span class="line">      <span class="string">password：123456</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="启动类"><a href="#启动类" class="headerlink" title="启动类"></a>启动类</h2><p>@EnableMethodCache，@EnableCreateCacheAnnotation这两个注解分别激活@Cached和@CreateCache注解</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableMethodCache(basePackages = &quot;com.company.mypackage&quot;)</span></span><br><span class="line"><span class="meta">@EnableCreateCacheAnnotation</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySpringBootApp</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(MySpringBootApp.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="七、官方详细文档"><a href="#七、官方详细文档" class="headerlink" title="七、官方详细文档"></a>七、官方详细文档</h1><p><a target="_blank" rel="noopener" href="https://github.com/alibaba/jetcache/wiki/Home_CN">https://github.com/alibaba/jetcache/wiki/Home_CN</a></p>
+<p>增加 arthas 后在 docker 环境中需要使用 tini 作为父进程来收割僵尸进程</p>
+<p><img src="https://p.pstatp.com/origin/pgc-image/91a4596505224aeaa5836f18d180f754"></p>
+<h1 id="开始诊断"><a href="#开始诊断" class="headerlink" title="开始诊断"></a>开始诊断</h1><h2 id="trace"><a href="#trace" class="headerlink" title="trace"></a>trace</h2><blockquote>
+<p>方法内部调用路径，并输出方法路径上的每个节点上耗时</p>
+<p><a target="_blank" rel="noopener" href="https://arthas.aliyun.com/doc/trace.html">https://arthas.aliyun.com/doc/trace.html</a></p>
+</blockquote>
+<p><img src="https://p.pstatp.com/origin/pgc-image/643ca064e703417f92b4650c2d430d5d" alt="1"></p>
+<p>官方文档： <a target="_blank" rel="noopener" href="https://arthas.aliyun.com/doc/">https://arthas.aliyun.com/doc/</a></p>
 
       
 
@@ -485,7 +220,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JetCache</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Arthas</a>
         		</li>
       		
 		</ul>
@@ -541,7 +276,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/08/07/Java%E7%BC%93%E5%AD%98%E6%A1%86%E6%9E%B6JetCache%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BD%BF%E7%94%A8/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/08/07/Docker%E4%B8%AD%E4%BD%BF%E7%94%A8Arthas%E6%8E%92%E6%9F%A5%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -555,15 +290,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/08/07/MapStruct%E5%AF%B9%E8%B1%A1%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          MapStruct对象转换工具
-        
-      </div>
-    </a>
   
+    <a href="/2021/08/07/IDEA%E4%BC%98%E7%A7%80%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">IDEA优秀插件推荐</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -588,7 +319,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">一、简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%8E%AF%E5%A2%83%E8%A6%81%E6%B1%82"><span class="toc-number">2.</span> <span class="toc-text">二、环境要求</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%96%B9%E6%B3%95%E7%BC%93%E5%AD%98"><span class="toc-number">3.</span> <span class="toc-text">三、方法缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Cached"><span class="toc-number">3.1.</span> <span class="toc-text">@Cached</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CacheUpdate"><span class="toc-number">3.2.</span> <span class="toc-text">@CacheUpdate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CacheInvalidate"><span class="toc-number">3.3.</span> <span class="toc-text">@CacheInvalidate</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%88%9B%E5%BB%BA%E7%BC%93%E5%AD%98%E5%AE%9E%E4%BE%8B"><span class="toc-number">4.</span> <span class="toc-text">四、创建缓存实例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CreateCache"><span class="toc-number">4.1.</span> <span class="toc-text">@CreateCache</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3"><span class="toc-number">5.</span> <span class="toc-text">五、配置详解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B"><span class="toc-number">6.</span> <span class="toc-text">六、快速上手</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#POM"><span class="toc-number">6.1.</span> <span class="toc-text">POM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#application-yml"><span class="toc-number">6.2.</span> <span class="toc-text">application.yml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%B1%BB"><span class="toc-number">6.3.</span> <span class="toc-text">启动类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%AE%98%E6%96%B9%E8%AF%A6%E7%BB%86%E6%96%87%E6%A1%A3"><span class="toc-number">7.</span> <span class="toc-text">七、官方详细文档</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Arthas%E8%83%BD%E4%B8%BA%E4%BD%A0%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">Arthas能为你做什么？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%A8Docker%E4%B8%AD%E4%BD%BF%E7%94%A8Arthas"><span class="toc-number">2.</span> <span class="toc-text">在Docker中使用Arthas</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E4%BE%9B%E4%B8%89%E7%A7%8D%E4%BD%BF%E7%94%A8Arthas%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">提供三种使用Arthas的方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%8A%E6%96%ADDocker%E9%87%8C%E7%9A%84Java%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.1.1.</span> <span class="toc-text">诊断Docker里的Java进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%8A%E6%96%ADk8s%E9%87%8C%E5%AE%B9%E5%99%A8%E9%87%8C%E7%9A%84Java%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.1.2.</span> <span class="toc-text">诊断k8s里容器里的Java进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%8AArthas%E5%AE%89%E8%A3%85%E5%88%B0%E5%9F%BA%E7%A1%80%E9%95%9C%E5%83%8F%E9%87%8C"><span class="toc-number">2.1.3.</span> <span class="toc-text">把Arthas安装到基础镜像里</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E8%AF%8A%E6%96%AD"><span class="toc-number">3.</span> <span class="toc-text">开始诊断</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#trace"><span class="toc-number">3.1.</span> <span class="toc-text">trace</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>

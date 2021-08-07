@@ -15,15 +15,15 @@
 <meta property="og:site_name" content="小朱IT博客">
 <meta property="og:description" content="MapStruct简单介绍MapStruct 是一个属性映射工具，只需要定义一个 Mapper 接口，MapStruct 就会自动实现这个映射接口，避免了复杂繁琐的映射实现。">
 <meta property="og:locale">
-<meta property="og:image" content="https://angogo.feishu.cn/space/api/box/stream/download/asynccode/?code=MWNlNDA5ZDk3MGE5MzhjZDJkYzRjYzY1NzhhNmI0YWJfVExxU0ZmbWJEODVoT2FmdFFaUHhqMUs5RGVTZ2pGUjFfVG9rZW46Ym94Y256bENvcG90Nm9XNm1DNHg5YVVIZ2ZjXzE2MjgzMTcxMzE6MTYyODMyMDczMV9WNA">
-<meta property="og:image" content="https://angogo.feishu.cn/space/api/box/stream/download/asynccode/?code=ODZhYjExMWNlZTUyMjYyZjE4MzBjZTM4OGY2NWY5ZDNfMHhOZjdrcUZ0UXFZdUI1TXJNOVlmcnJnRjFib0ZPYnJfVG9rZW46Ym94Y24zZnlUS3BUUDcwcjRtOXVKcmRBcHlHXzE2MjgzMTcxMzE6MTYyODMyMDczMV9WNA">
-<meta property="og:image" content="https://angogo.feishu.cn/space/api/box/stream/download/asynccode/?code=NGI3MzUwZjY5ZjE5N2M2NGQwM2RjYjFiYzM0NTk5NGVfcHZDOHRicDhoMVd3QXZ0dW1KS2JnMFYzU2paRWx6ZVZfVG9rZW46Ym94Y25UZXNMQWowM2V2bjl3ekRHeEFOWW9BXzE2MjgzMTcxMzE6MTYyODMyMDczMV9WNA">
+<meta property="og:image" content="https://p.pstatp.com/origin/pgc-image/d22090c2f534485f8c6bd83c54e68b23">
+<meta property="og:image" content="https://p.pstatp.com/origin/pgc-image/af2a94a1376d4b218c4261d90d64b577">
+<meta property="og:image" content="https://p.pstatp.com/origin/pgc-image/0126683c9497427b84f38ba846c42b49">
 <meta property="article:published_time" content="2021-08-07T06:17:49.000Z">
-<meta property="article:modified_time" content="2021-08-07T06:31:08.225Z">
+<meta property="article:modified_time" content="2021-08-07T11:04:46.227Z">
 <meta property="article:author" content="小朱">
 <meta property="article:tag" content="MapStruct">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://angogo.feishu.cn/space/api/box/stream/download/asynccode/?code=MWNlNDA5ZDk3MGE5MzhjZDJkYzRjYzY1NzhhNmI0YWJfVExxU0ZmbWJEODVoT2FmdFFaUHhqMUs5RGVTZ2pGUjFfVG9rZW46Ym94Y256bENvcG90Nm9XNm1DNHg5YVVIZ2ZjXzE2MjgzMTcxMzE6MTYyODMyMDczMV9WNA">
+<meta name="twitter:image" content="https://p.pstatp.com/origin/pgc-image/d22090c2f534485f8c6bd83c54e68b23">
   
     <link rel="alternative" href="/atom.xml" title="小朱IT博客" type="application/atom+xml">
   
@@ -196,7 +196,7 @@
 <p>以上示例参考官网的例子，例子中使用了lombok插件，请自行添加相关依赖和插件后使用。</p>
 <h3 id="MapStruct原理说明"><a href="#MapStruct原理说明" class="headerlink" title="MapStruct原理说明"></a><strong>MapStruct原理说明</strong></h3><p>1、在 target/generated-sources/annotations 里可以看到，代码中可以看到其生成了一个实现类， 而代码也类似于我们手写。</p>
 <p>这个在编译期生成的代码，性能比反射要快不少。</p>
-<p><img src="https://angogo.feishu.cn/space/api/box/stream/download/asynccode/?code=MWNlNDA5ZDk3MGE5MzhjZDJkYzRjYzY1NzhhNmI0YWJfVExxU0ZmbWJEODVoT2FmdFFaUHhqMUs5RGVTZ2pGUjFfVG9rZW46Ym94Y256bENvcG90Nm9XNm1DNHg5YVVIZ2ZjXzE2MjgzMTcxMzE6MTYyODMyMDczMV9WNA" alt="img"></p>
+<p><img src="https://p.pstatp.com/origin/pgc-image/d22090c2f534485f8c6bd83c54e68b23" alt="img"></p>
 <p>2、MapStruct是利用编译期动态生成set/get代码的class文件 ，在运行时直接调用该class文件。 该方式实际上仍会存在set/get代码，只是不需要自己手写。</p>
 <h3 id="MapStruct-转换方式"><a href="#MapStruct-转换方式" class="headerlink" title="MapStruct 转换方式"></a><strong>MapStruct 转换方式</strong></h3><p>1.属性名称相同，直接转化，类似BeanUtils的转换防守</p>
 <p>2.属性名不相同， 可通过 @Mapping 注解进行指定转化</p>
@@ -207,12 +207,12 @@
 <li>当多个原对象中，有相同名字的属性时，需要通过 @Mapping 注解来具体的指定，以免出现歧义</li>
 <li>当有多个属性不一致时，有两种解决方式</li>
 </ul>
-<p><img src="https://angogo.feishu.cn/space/api/box/stream/download/asynccode/?code=ODZhYjExMWNlZTUyMjYyZjE4MzBjZTM4OGY2NWY5ZDNfMHhOZjdrcUZ0UXFZdUI1TXJNOVlmcnJnRjFib0ZPYnJfVG9rZW46Ym94Y24zZnlUS3BUUDcwcjRtOXVKcmRBcHlHXzE2MjgzMTcxMzE6MTYyODMyMDczMV9WNA" alt="img"></p>
+<p><img src="https://p.pstatp.com/origin/pgc-image/af2a94a1376d4b218c4261d90d64b577" alt="img"></p>
 <ol>
 <li>添加多个@Mapping（推荐）</li>
 <li>用@Mappings将多个@Mapping包起来（sonar检测会告警，不影响使用）</li>
 </ol>
-<p><img src="https://angogo.feishu.cn/space/api/box/stream/download/asynccode/?code=NGI3MzUwZjY5ZjE5N2M2NGQwM2RjYjFiYzM0NTk5NGVfcHZDOHRicDhoMVd3QXZ0dW1KS2JnMFYzU2paRWx6ZVZfVG9rZW46Ym94Y25UZXNMQWowM2V2bjl3ekRHeEFOWW9BXzE2MjgzMTcxMzE6MTYyODMyMDczMV9WNA" alt="img"></p>
+<p><img src="https://p.pstatp.com/origin/pgc-image/0126683c9497427b84f38ba846c42b49" alt="img"></p>
 <h3 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h3><ul>
 <li>官网：<a target="_blank" rel="noopener" href="https://mapstruct.org/">https://mapstruct.org/</a></li>
 <li>Github地址：<a target="_blank" rel="noopener" href="https://github.com/mapstruct/mapstruct/">https://github.com/mapstruct/mapstruct/</a></li>
@@ -479,6 +479,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">IDEA插件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Arthas</a>
               </li>
             
             <div class="clearfix"></div>
