@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>MapStruct对象转换工具 | 小朱IT博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="MapStruct简单介绍MapStruct 是一个属性映射工具，只需要定义一个 Mapper 接口，MapStruct 就会自动实现这个映射接口，避免了复杂繁琐的映射实现。 在一个Java工程中会涉及到多种对象，po、vo、dto、entity、do、domain这些定义的对象运用在不同的场景模块中，这种对象与对象之间的互相转换，就需要有一个专门用来解决转换问题的工具。以往的方式要么是自己写转换">
+  <meta name="description" content="MapStruct简单介绍MapStruct 是一个属性映射工具，只需要定义一个 Mapper 接口，MapStruct 就会自动实现这个映射接口，避免了复杂繁琐的映射实现。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MapStruct对象转换工具">
 <meta property="og:url" content="http://example.com/2021/08/07/MapStruct%E5%AF%B9%E8%B1%A1%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7/index.html">
 <meta property="og:site_name" content="小朱IT博客">
-<meta property="og:description" content="MapStruct简单介绍MapStruct 是一个属性映射工具，只需要定义一个 Mapper 接口，MapStruct 就会自动实现这个映射接口，避免了复杂繁琐的映射实现。 在一个Java工程中会涉及到多种对象，po、vo、dto、entity、do、domain这些定义的对象运用在不同的场景模块中，这种对象与对象之间的互相转换，就需要有一个专门用来解决转换问题的工具。以往的方式要么是自己写转换">
+<meta property="og:description" content="MapStruct简单介绍MapStruct 是一个属性映射工具，只需要定义一个 Mapper 接口，MapStruct 就会自动实现这个映射接口，避免了复杂繁琐的映射实现。">
 <meta property="og:locale">
 <meta property="og:image" content="https://angogo.feishu.cn/space/api/box/stream/download/asynccode/?code=MWNlNDA5ZDk3MGE5MzhjZDJkYzRjYzY1NzhhNmI0YWJfVExxU0ZmbWJEODVoT2FmdFFaUHhqMUs5RGVTZ2pGUjFfVG9rZW46Ym94Y256bENvcG90Nm9XNm1DNHg5YVVIZ2ZjXzE2MjgzMTcxMzE6MTYyODMyMDczMV9WNA">
 <meta property="og:image" content="https://angogo.feishu.cn/space/api/box/stream/download/asynccode/?code=ODZhYjExMWNlZTUyMjYyZjE4MzBjZTM4OGY2NWY5ZDNfMHhOZjdrcUZ0UXFZdUI1TXJNOVlmcnJnRjFib0ZPYnJfVG9rZW46Ym94Y24zZnlUS3BUUDcwcjRtOXVKcmRBcHlHXzE2MjgzMTcxMzE6MTYyODMyMDczMV9WNA">
 <meta property="og:image" content="https://angogo.feishu.cn/space/api/box/stream/download/asynccode/?code=NGI3MzUwZjY5ZjE5N2M2NGQwM2RjYjFiYzM0NTk5NGVfcHZDOHRicDhoMVd3QXZ0dW1KS2JnMFYzU2paRWx6ZVZfVG9rZW46Ym94Y25UZXNMQWowM2V2bjl3ekRHeEFOWW9BXzE2MjgzMTcxMzE6MTYyODMyMDczMV9WNA">
 <meta property="article:published_time" content="2021-08-07T06:17:49.000Z">
-<meta property="article:modified_time" content="2021-08-07T06:27:43.215Z">
+<meta property="article:modified_time" content="2021-08-07T06:28:51.167Z">
 <meta property="article:author" content="小朱">
 <meta property="article:tag" content="MapStruct">
 <meta name="twitter:card" content="summary">
@@ -175,7 +175,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="MapStruct简单介绍"><a href="#MapStruct简单介绍" class="headerlink" title="MapStruct简单介绍"></a><strong>MapStruct简单介绍</strong></h3><p>MapStruct 是一个属性映射工具，只需要定义一个 Mapper 接口，MapStruct 就会自动实现这个映射接口，避免了复杂繁琐的映射实现。</p>
+        <h3 id="MapStruct简单介绍"><a href="#MapStruct简单介绍" class="headerlink" title="MapStruct简单介绍"></a><strong>MapStruct简单介绍</strong></h3><p>MapStruct 是一个属性映射工具，只需要定义一个 Mapper 接口，MapStruct 就会自动实现这个映射接口，避免了复杂繁琐的映射实现。<span id="more"></span></p>
 <p>在一个Java工程中会涉及到多种对象，po、vo、dto、entity、do、domain这些定义的对象运用在不同的场景模块中，这种对象与对象之间的互相转换，就需要有一个专门用来解决转换问题的工具。以往的方式要么是自己写转换器，要么是用Apache或Spring的BeanUtils来实现转换。无论哪种方式都存在明显的缺点，比如手写转换器既浪费时间， 而且在添加新的字段的时候也要进行方法的修改；而无论是 BeanUtils, BeanCopier 等都是使用反射来实现，效率低下并且仅支持属性名一致时的转换。</p>
 <p>MapSturct 是一个生成类型安全， 高性能且无依赖的 JavaBean 映射代码的注解处理器。作为一个工具类，相比于手写，其具有便捷，不容易出错的特点。</p>
 <h3 id="MapStruct的使用"><a href="#MapStruct的使用" class="headerlink" title="MapStruct的使用"></a><strong>MapStruct的使用</strong></h3><h4 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a><strong>引入依赖</strong></h4><p>maven工程需要在pom文件中引入以下依赖</p>
