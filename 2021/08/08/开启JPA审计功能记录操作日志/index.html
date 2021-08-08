@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: IDEA插件 | 小朱IT博客</title>
+  <title>开启JPA审计功能记录操作日志 | 小朱IT博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="不积跬步,无以致千里;不积小流,无以成江海">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小朱IT博客">
-<meta property="og:url" content="http://example.com/tags/IDEA%E6%8F%92%E4%BB%B6/index.html">
+  <meta name="description" content="数据库审计数据库审计是指当数据库有记录变更时，可以记录数据库的变更时间和变更人等，这样以后出问题回溯问责也比较方便。 Spring Data JPA为我们提供了方便的Audit功能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开启JPA审计功能记录操作日志">
+<meta property="og:url" content="http://example.com/2021/08/08/%E5%BC%80%E5%90%AFJPA%E5%AE%A1%E8%AE%A1%E5%8A%9F%E8%83%BD%E8%AE%B0%E5%BD%95%E6%93%8D%E4%BD%9C%E6%97%A5%E5%BF%97/index.html">
 <meta property="og:site_name" content="小朱IT博客">
-<meta property="og:description" content="不积跬步,无以致千里;不积小流,无以成江海">
+<meta property="og:description" content="数据库审计数据库审计是指当数据库有记录变更时，可以记录数据库的变更时间和变更人等，这样以后出问题回溯问责也比较方便。 Spring Data JPA为我们提供了方便的Audit功能">
 <meta property="og:locale">
+<meta property="article:published_time" content="2021-08-08T10:28:06.000Z">
+<meta property="article:modified_time" content="2021-08-08T11:43:26.667Z">
 <meta property="article:author" content="小朱">
-<meta property="article:tag" content="java,php,前端,后端,html,js,antd,react">
+<meta property="article:tag" content="JPA">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="小朱IT博客" type="application/atom+xml">
@@ -161,48 +163,82 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-开启JPA审计功能记录操作日志" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/08/07/IDEA%E4%BC%98%E7%A7%80%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/" class="archive-article-date">
-  	<time datetime="2021-08-07T06:48:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-07</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/08/07/IDEA%E4%BC%98%E7%A7%80%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/">IDEA优秀插件推荐</a>
+    <h1 class="article-title" itemprop="name">
+      开启JPA审计功能记录操作日志
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2021/08/08/%E5%BC%80%E5%90%AFJPA%E5%AE%A1%E8%AE%A1%E5%8A%9F%E8%83%BD%E8%AE%B0%E5%BD%95%E6%93%8D%E4%BD%9C%E6%97%A5%E5%BF%97/" class="archive-article-date">
+  	<time datetime="2021-08-08T10:28:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="数据库审计"><a href="#数据库审计" class="headerlink" title="数据库审计"></a>数据库审计</h1><p>数据库审计是指当数据库有记录变更时，可以记录数据库的变更时间和变更人等，这样以后出问题回溯问责也比较方便。</p>
+<p><code>Spring Data JPA</code>为我们提供了方便的<code>Audit</code>功能<span id="more"></span></p>
+<h1 id="注解字段"><a href="#注解字段" class="headerlink" title="注解字段"></a>注解字段</h1><p>主要有 下面几核心的基础注解</p>
+<p><code>@CreateBy</code> 表示该字段为 “创建者” 字段，在实体被 insert 之时设置</p>
+<p><code>@LastModifiedBy</code> 表示该字段为 “最后修改者” 字段，在实体被 update 之时设置</p>
+<p><code>@CreatedDate</code> 表示该字段为 “创建时间” 字段，在实体被 insert 之时设置</p>
+<p><code>@LastmodifiedDate</code> 表示该字段为 “修改时间” 字段，在实体被 update 之时设置</p>
+<p><code>@EntityListeners</code> 作用于实体类上，用来监听实体类的变化</p>
+<h1 id="核心接口"><a href="#核心接口" class="headerlink" title="核心接口"></a>核心接口</h1><p><code>PostLoadEventListener</code>    </p>
+<p>将实体加载到数据库的当前持续性上下文中后或在向其应用了刷新操作后调用重写方法onPostLoad。</p>
+<p><code>PostInsertEventListener</code>    </p>
+<p>监听save之后的事件，要使用该功能只需实现该接口并重写onPostInsert方法，并在该方法里面写保存之后需要做的事就行</p>
+<p><code>PreInsertEventListener</code></p>
+<p>监听save之前的事件，要使用该功能只需实现该接口并重写onPreInsert方法，并在该方法里面写保存之前需要做的事就行</p>
+<p><code>PostUpdateEventListener</code>    </p>
+<p>监听update之后的事件，要使用该功能只需实现该接口并重写     onPostUpdate方法，并在该方法里面写更新之后需要做的事就行</p>
+<p><code>PreUpdateEventListener</code>    </p>
+<p>监听update之前的事件，要使用该功能只需实现该接口并重写onPreUpdate方法，并在该方法里面写更新之前需要做的事就行</p>
+<p><code>PostDeleteEventListener</code>    </p>
+<p>监听remove之后的事件，要使用该功能只需实现该接口并重写onPostRemove方法，并在该方法里面写移除之后需要做的事就行</p>
+<p><code>PreDeleteEventListener</code></p>
+<p>监听remove之前的事件，要使用该功能只需实现该接口并重写onPreRemove方法，并在该方法里面写移除之前需要做的事就行</p>
+<h1 id="项目应用"><a href="#项目应用" class="headerlink" title="项目应用"></a>项目应用</h1><p>引入包，由于是spring data jpa提供的，故只需引入jpa的包即可</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.data<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-data-jpa<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>定义监听类</p>
+<p>定义监听类AuditLogListener,这里根据具体要监听什么事件，去实现对应的接口，这里实现PostInsertEventListener, PostUpdateEventListener, PostDeleteEventListener这三个接口并重写对应的方法来实现对新增、修改、删除进行监听：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.hibernate.event.spi.*;</span><br><span class="line"><span class="keyword">import</span> org.hibernate.persister.entity.EntityPersister;</span><br><span class="line"><span class="keyword">import</span> org.hibernate.persister.entity.SingleTableEntityPersister;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 审计事件监听</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AuditLogListener</span> <span class="keyword">implements</span> <span class="title">PostInsertEventListener</span>, <span class="title">PostUpdateEventListener</span>, <span class="title">PostDeleteEventListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 新增</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> postInsertEvent</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPostInsert</span><span class="params">(PostInsertEvent postInsertEvent)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//数据库</span></span><br><span class="line">      String dbName = postInsertEvent.getSession().getJdbcServices().getJdbcEnvironment()</span><br><span class="line">        .getCurrentCatalog().getText();</span><br><span class="line">      <span class="comment">//表</span></span><br><span class="line">      String tableName = ((SingleTableEntityPersister)postInsertEvent.getPersister()).getTableName();</span><br><span class="line">      <span class="comment">//id</span></span><br><span class="line">      String id = postInsertEvent.getId();</span><br><span class="line">      <span class="comment">//字段</span></span><br><span class="line">      String[] propertyNames = postInsertEvent.getPersister().getPropertyNames();</span><br><span class="line">      <span class="comment">//数据</span></span><br><span class="line">      Object[] state = postInsertEvent.getState();     </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 更新</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> postUpdateEvent</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPostUpdate</span><span class="params">(PostUpdateEvent postUpdateEvent)</span> </span>&#123;</span><br><span class="line">      String dbName = postUpdateEvent.getSession().getJdbcServices().getJdbcEnvironment()</span><br><span class="line">        .getCurrentCatalog().getText();</span><br><span class="line">      String tableName = ((SingleTableEntityPersister)postUpdateEvent.getPersister()).getTableName();</span><br><span class="line">      <span class="comment">//字段</span></span><br><span class="line">      String[] propertyNames = postUpdateEvent.getPersister().getPropertyNames();</span><br><span class="line">      <span class="comment">//修改后的数据</span></span><br><span class="line">      Object[] currentState = postUpdateEvent.getState();</span><br><span class="line">      <span class="comment">//修改前的数据</span></span><br><span class="line">      Object[] previousState = postUpdateEvent.getOldState();</span><br><span class="line">      <span class="comment">//改变的数组</span></span><br><span class="line">      <span class="keyword">int</span>[] dirtyProperties = postUpdateEvent.getDirtyProperties(); </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> postDeleteEvent</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPostDelete</span><span class="params">(PostDeleteEvent postDeleteEvent)</span> </span>&#123;</span><br><span class="line">      String dbName = postDeleteEvent.getSession().getJdbcServices().getJdbcEnvironment()</span><br><span class="line">        .getCurrentCatalog().getText();</span><br><span class="line">      String tableName = ((SingleTableEntityPersister)postDeleteEvent.getPersister()).getTableName();</span><br><span class="line">      String[] propertyNames = postDeleteEvent.getPersister().getPropertyNames();</span><br><span class="line">      Object[] state = postDeleteEvent.getDeletedState();     </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">requiresPostCommitHanding</span><span class="params">(EntityPersister entityPersister)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="将监听器注册进对应的数据源"><a href="#将监听器注册进对应的数据源" class="headerlink" title="将监听器注册进对应的数据源"></a>将监听器注册进对应的数据源</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.hibernate.event.service.spi.EventListenerRegistry;</span><br><span class="line"><span class="keyword">import</span> org.hibernate.event.spi.EventType;</span><br><span class="line"><span class="keyword">import</span> org.hibernate.internal.SessionFactoryImpl;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Qualifier;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.annotation.PostConstruct;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.EntityManagerFactory;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 配置监听</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListenerConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="meta">@Qualifier(&quot;basicEntityManagerFactory&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> EntityManagerFactory emf;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> AuditLogListener auditLogListener;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        SessionFactoryImpl sessionFactory = emf.unwrap(SessionFactoryImpl.class);</span><br><span class="line">        EventListenerRegistry registry = sessionFactory.getServiceRegistry().</span><br><span class="line">          getService(EventListenerRegistry.class);</span><br><span class="line">        registry.getEventListenerGroup(EventType.POST_INSERT).appendListener(auditLogListener);</span><br><span class="line">        registry.getEventListenerGroup(EventType.POST_UPDATE).appendListener(auditLogListener);</span><br><span class="line">        registry.getEventListenerGroup(EventType.POST_DELETE).appendListener(auditLogListener);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="在需要监听的entity上加注解-EntityListeners"><a href="#在需要监听的entity上加注解-EntityListeners" class="headerlink" title="在需要监听的entity上加注解@EntityListeners"></a>在需要监听的entity上加注解@EntityListeners</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table(name=&quot;product&quot;)</span></span><br><span class="line"><span class="meta">@EntityListeners(AuditLogListener.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column(name = &quot;`coid`&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Integer coid;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column(name = &quot;`ncoid`&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Integer ncoid;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="启动类加上-EnableJpaAuditing注解"><a href="#启动类加上-EnableJpaAuditing注解" class="headerlink" title="启动类加上@EnableJpaAuditing注解"></a>启动类加上@EnableJpaAuditing注解</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableJpaAuditing</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsoleBasicApplication</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(ConsoleBasicApplication.class, args);</span><br><span class="line">        System.out.println(<span class="string">&quot;started&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="项目参考"><a href="#项目参考" class="headerlink" title="项目参考"></a>项目参考</h1><p><a target="_blank" rel="noopener" href="https://github.com/FintechLabs/spring-boot-audit-log/blob/master/src/main/java/com/fintechlabs/auditlogs/audit/AuditLogListener.java">https://github.com/FintechLabs/spring-boot-audit-log/blob/master/src/main/java/com/fintechlabs/auditlogs/audit/AuditLogListener.java</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">IDEA插件</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JPA</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -215,17 +251,136 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/08/08/%E5%BC%80%E5%90%AFJPA%E5%AE%A1%E8%AE%A1%E5%8A%9F%E8%83%BD%E8%AE%B0%E5%BD%95%E6%93%8D%E4%BD%9C%E6%97%A5%E5%BF%97/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2021/08/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">设计模式之模板模式</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%A1%E8%AE%A1"><span class="toc-number">1.</span> <span class="toc-text">数据库审计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B3%A8%E8%A7%A3%E5%AD%97%E6%AE%B5"><span class="toc-number">2.</span> <span class="toc-text">注解字段</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%8E%A5%E5%8F%A3"><span class="toc-number">3.</span> <span class="toc-text">核心接口</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%BA%94%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">项目应用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%86%E7%9B%91%E5%90%AC%E5%99%A8%E6%B3%A8%E5%86%8C%E8%BF%9B%E5%AF%B9%E5%BA%94%E7%9A%84%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="toc-number">5.</span> <span class="toc-text">将监听器注册进对应的数据源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%A8%E9%9C%80%E8%A6%81%E7%9B%91%E5%90%AC%E7%9A%84entity%E4%B8%8A%E5%8A%A0%E6%B3%A8%E8%A7%A3-EntityListeners"><span class="toc-number">6.</span> <span class="toc-text">在需要监听的entity上加注解@EntityListeners</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%B1%BB%E5%8A%A0%E4%B8%8A-EnableJpaAuditing%E6%B3%A8%E8%A7%A3"><span class="toc-number">7.</span> <span class="toc-text">启动类加上@EnableJpaAuditing注解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%8F%82%E8%80%83"><span class="toc-number">8.</span> <span class="toc-text">项目参考</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
+  <div id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+<script>
+var gitalk = new Gitalk({
+  clientID: 'b47262635a67a902a701',
+  clientSecret: '258067c1859f043b9e1fa81a63c45e729b9f158c',
+  repo: 'zhuchaoli.github.io',
+  owner: 'zhuchaoli',
+  admin: ['zhuchaoli'],
+  id: decodeURI(location.pathname),      
+  distractionFreeMode: false 
+})
+gitalk.render('gitalk-container')
+</script>
+
+  
 
 
           </div>
@@ -248,9 +403,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
