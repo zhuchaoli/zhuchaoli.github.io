@@ -6,18 +6,29 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>小朱IT博客</title>
+  <title>IDEA Git cherry-pick实现分支的部分提交合并到Master | 小朱IT博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="不积跬步,无以致千里;不积小流,无以成江海">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小朱IT博客">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="A同学和B同学开发不同的功能，但使用的是同一个分支，原本定的是同一天上线，由于A同学的需求临时变更致使项目延期，导致B同学无法正常上线，若一点一点迁移自己的代码到新分支，想想就是体力活呀，坑爹的产品。 突然发现 git 还有 cherry-pick 功能，真心的兴奋至极。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IDEA Git cherry-pick实现分支的部分提交合并到Master">
+<meta property="og:url" content="http://example.com/2021/08/09/IDEA-Git-cherry-pick%E5%AE%9E%E7%8E%B0%E5%88%86%E6%94%AF%E7%9A%84%E9%83%A8%E5%88%86%E6%8F%90%E4%BA%A4%E5%90%88%E5%B9%B6%E5%88%B0Master/index.html">
 <meta property="og:site_name" content="小朱IT博客">
-<meta property="og:description" content="不积跬步,无以致千里;不积小流,无以成江海">
+<meta property="og:description" content="A同学和B同学开发不同的功能，但使用的是同一个分支，原本定的是同一天上线，由于A同学的需求临时变更致使项目延期，导致B同学无法正常上线，若一点一点迁移自己的代码到新分支，想想就是体力活呀，坑爹的产品。 突然发现 git 还有 cherry-pick 功能，真心的兴奋至极。">
 <meta property="og:locale">
+<meta property="og:image" content="https://p.pstatp.com/origin/pgc-image/11359a1766d94625a80e83359e23610e">
+<meta property="og:image" content="https://p.pstatp.com/origin/pgc-image/6e33f86224b64264a44fe05b86560f55">
+<meta property="og:image" content="https://p.pstatp.com/origin/pgc-image/c7370edb68c84b6497dac7e7a188e3b7">
+<meta property="og:image" content="https://p.pstatp.com/origin/pgc-image/f06af8d4bd034b48801eda8f9d31f460">
+<meta property="og:image" content="https://p.pstatp.com/origin/pgc-image/cbbe6300925c45eeb9cbfbe699172ab5">
+<meta property="og:image" content="https://p.pstatp.com/origin/pgc-image/642597bae46e4004b4273673f8db8332">
+<meta property="og:image" content="https://p.pstatp.com/origin/pgc-image/0aaf0393d57f4a50a82e7348674492c8">
+<meta property="og:image" content="https://p.pstatp.com/origin/pgc-image/df86189e136a4613959d04bf30c561e5">
+<meta property="article:published_time" content="2021-08-09T13:46:23.000Z">
+<meta property="article:modified_time" content="2021-08-09T14:12:40.025Z">
 <meta property="article:author" content="小朱">
-<meta property="article:tag" content="java,php,前端,后端,html,js,antd,react">
+<meta property="article:tag" content="cherry-pick">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p.pstatp.com/origin/pgc-image/11359a1766d94625a80e83359e23610e">
   
     <link rel="alternative" href="/atom.xml" title="小朱IT博客" type="application/atom+xml">
   
@@ -161,16 +172,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-IDEA-Git-cherry-pick实现分支的部分提交合并到Master" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-IDEA-Git-cherry-pick实现分支的部分提交合并到Master" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/09/IDEA-Git-cherry-pick%E5%AE%9E%E7%8E%B0%E5%88%86%E6%94%AF%E7%9A%84%E9%83%A8%E5%88%86%E6%8F%90%E4%BA%A4%E5%90%88%E5%B9%B6%E5%88%B0Master/">IDEA Git cherry-pick实现分支的部分提交合并到Master</a>
+    <h1 class="article-title" itemprop="name">
+      IDEA Git cherry-pick实现分支的部分提交合并到Master
     </h1>
   
 
@@ -184,8 +193,24 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>A同学和B同学开发不同的功能，但使用的是同一个分支，原本定的是同一天上线，由于A同学的需求临时变更致使项目延期，导致B同学无法正常上线，若一点一点迁移自己的代码到新分支，想想就是体力活呀，坑爹的产品。</p>
-<p>突然发现 git 还有 cherry-pick 功能，真心的兴奋至极。
-        
+<p>突然发现 git 还有 cherry-pick 功能，真心的兴奋至极。<span id="more"></span></p>
+<p>1.A同学在A分支上开发，B同学在B分支上开发，其中各自分支图如下：</p>
+<p>A同学的分支A Git提交历史框如下： <img src="https://p.pstatp.com/origin/pgc-image/11359a1766d94625a80e83359e23610e" alt="Snipaste_2021-08-09_21-52-35.png"></p>
+<p>B同学的分支B Git提交历史框如下： <img src="https://p.pstatp.com/origin/pgc-image/6e33f86224b64264a44fe05b86560f55" alt="Snipaste_2021-08-09_21-55-35.png"></p>
+<p>2.A同学开发了一个功能【努力成为架构师】，在A分支上commit或push了3次，此时A分支git提交历史图如下</p>
+<p><img src="https://p.pstatp.com/origin/pgc-image/c7370edb68c84b6497dac7e7a188e3b7" alt="Snipaste_2021-08-09_21-57-50.png"></p>
+<p>其中，33%和66%的都是push了，100%只commit未push。</p>
+<p>3.B同学在分支B上，看到了A同学提交的功能，他也想努力成功架构师，所以他想让自己的分支B也有这3个提交历史。</p>
+<p><img src="https://p.pstatp.com/origin/pgc-image/f06af8d4bd034b48801eda8f9d31f460" alt="Snipaste_2021-08-09_21-58-37.png"></p>
+<p>于是，B同学在B分支里，按住鼠标左键不松手，下滑选中3个提交记录，然后右击鼠标，选择 Cherry-Pick 选项，如图：</p>
+<p><img src="https://p.pstatp.com/origin/pgc-image/cbbe6300925c45eeb9cbfbe699172ab5" alt="Snipaste_2021-08-09_21-59-14.png"></p>
+<p>此时B分支上，可以看到如图：</p>
+<p><img src="https://p.pstatp.com/origin/pgc-image/642597bae46e4004b4273673f8db8332" alt="Snipaste_2021-08-09_22-01-54.png"></p>
+<p>如果你觉得不够直观，我们可以只看B分支的提交历史记录</p>
+<p><img src="https://p.pstatp.com/origin/pgc-image/0aaf0393d57f4a50a82e7348674492c8" alt="Snipaste_2021-08-09_22-02-08.png"></p>
+<p>6.最后一步，记得push即可</p>
+<p><img src="https://p.pstatp.com/origin/pgc-image/df86189e136a4613959d04bf30c561e5" alt="Snipaste_2021-08-09_22-02-29.png"></p>
+
       
 
       
@@ -218,16 +243,75 @@
 
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/09/IDEA-Git-cherry-pick%E5%AE%9E%E7%8E%B0%E5%88%86%E6%94%AF%E7%9A%84%E9%83%A8%E5%88%86%E6%8F%90%E4%BA%A4%E5%90%88%E5%B9%B6%E5%88%B0Master/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/08/09/IDEA-Git-cherry-pick%E5%AE%9E%E7%8E%B0%E5%88%86%E6%94%AF%E7%9A%84%E9%83%A8%E5%88%86%E6%8F%90%E4%BA%A4%E5%90%88%E5%B9%B6%E5%88%B0Master/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2021/08/08/%E5%BC%80%E5%90%AFJPA%E5%AE%A1%E8%AE%A1%E5%8A%9F%E8%83%BD%E8%AE%B0%E5%BD%95%E6%93%8D%E4%BD%9C%E6%97%A5%E5%BF%97/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">开启JPA审计功能记录操作日志</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -242,778 +326,51 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-开启JPA审计功能记录操作日志" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/08/%E5%BC%80%E5%90%AFJPA%E5%AE%A1%E8%AE%A1%E5%8A%9F%E8%83%BD%E8%AE%B0%E5%BD%95%E6%93%8D%E4%BD%9C%E6%97%A5%E5%BF%97/">开启JPA审计功能记录操作日志</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/08/%E5%BC%80%E5%90%AFJPA%E5%AE%A1%E8%AE%A1%E5%8A%9F%E8%83%BD%E8%AE%B0%E5%BD%95%E6%93%8D%E4%BD%9C%E6%97%A5%E5%BF%97/" class="archive-article-date">
-  	<time datetime="2021-08-08T10:28:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="数据库审计"><a href="#数据库审计" class="headerlink" title="数据库审计"></a>数据库审计</h1><p>数据库审计是指当数据库有记录变更时，可以记录数据库的变更时间和变更人等，这样以后出问题回溯问责也比较方便。</p>
-<p><code>Spring Data JPA</code>为我们提供了方便的<code>Audit</code>功能
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JPA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/08/%E5%BC%80%E5%90%AFJPA%E5%AE%A1%E8%AE%A1%E5%8A%9F%E8%83%BD%E8%AE%B0%E5%BD%95%E6%93%8D%E4%BD%9C%E6%97%A5%E5%BF%97/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    目录，不存在的…
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
-  
-    <article id="post-设计模式之模板模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/">设计模式之模板模式</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2021-08-08T09:46:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="什么是模板方法模式"><a href="#什么是模板方法模式" class="headerlink" title="什么是模板方法模式"></a><strong>什么是模板方法模式</strong></h1><p>　　在一个抽象类中定义一个操作中的算法骨架，而将一些步骤延迟到子类中去实现。模板模式是一种非常基础性的设计模式，在面向对象系统中有着大量的应用。它用最简洁的机制（虚函数的多态性）为很多应用程序框架提供了灵活的扩展，是代码复用方面的基本实现结构。
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">模板模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式/" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-介绍几种排序算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/08/%E4%BB%8B%E7%BB%8D%E5%87%A0%E7%A7%8D%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">介绍几种排序算法</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/08/%E4%BB%8B%E7%BB%8D%E5%87%A0%E7%A7%8D%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2021-08-08T09:15:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="冒泡排序（-时间复杂度-O-n²-）"><a href="#冒泡排序（-时间复杂度-O-n²-）" class="headerlink" title="冒泡排序（ 时间复杂度 O(n²) ）"></a>冒泡排序（ <strong>时间复杂度 O(n²)</strong> ）</h1><p>　　它重复地走访过要排序的元素列，依次比较两个相邻的元素，如果他们的顺序（如从大到小、首字母从A到Z）错误就把他们交换过来。走访元素的工作是重复地进行直到没有相邻元素需要交换，也就是说该元素已经排序完成。
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">排序算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/数据结构/" class="article-tag-list-link color5">数据结构</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/08/%E4%BB%8B%E7%BB%8D%E5%87%A0%E7%A7%8D%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Redisson实现分布式锁" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/07/Redisson%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">Redisson实现分布式锁</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/07/Redisson%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="archive-article-date">
-  	<time datetime="2021-08-07T14:18:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Redisson项目介绍"><a href="#Redisson项目介绍" class="headerlink" title="Redisson项目介绍"></a>Redisson项目介绍</h1><p>Redisson是架设在Redis基础上的一个Java驻内存数据网格。充分的利用了Redis键值数据库提供的一系列优势，基于Java实用工具包中常用接口，为使用者提供了一系列具有分布式特性的常用工具类。使得原本作为协调单机多线程并发程序的工具包获得了协调分布式多机多线程并发系统的能力，大大降低了设计和研发大规模分布式系统的难度。同时结合各富特色的分布式服务，更进一步简化了分布式环境中程序相互之间的协作。
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">分布式锁</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/07/Redisson%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-k8s环境下如何本地调试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/07/k8s%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%A6%82%E4%BD%95%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/">k8s环境下如何本地调试</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/07/k8s%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%A6%82%E4%BD%95%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/" class="archive-article-date">
-  	<time datetime="2021-08-07T13:44:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>Kubernetes 应用程序通常由多个独立的服务组成，每个服务都在自己的容器中运行。 在远端的 Kubernetes 集群上开发和调试这些服务可能很麻烦。</p>
-<p>这个时候我们可以考虑关闭k8s，通过手动设置服务列表的方式来调用相关的服务
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">k8s</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/07/k8s%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%A6%82%E4%BD%95%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-正则表达式入门教程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">正则表达式入门教程</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" class="archive-article-date">
-  	<time datetime="2021-08-07T11:21:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Regular Expression 正则表达式  常简称为： regex、正则。正则表达式是一整套约束字符串的语法规则，独立于任何编程语言。</p>
-<p>正则表达式 方便、灵活、功能强大，多部分编程语言都对正则表达式提供了支持。我们通常把正则作为一个工具，进行字符串的 校验、获取、替换等操作。
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">正则表达式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Docker中使用Arthas排查线上故障" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/07/Docker%E4%B8%AD%E4%BD%BF%E7%94%A8Arthas%E6%8E%92%E6%9F%A5%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C/">Docker中使用Arthas排查线上故障</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/07/Docker%E4%B8%AD%E4%BD%BF%E7%94%A8Arthas%E6%8E%92%E6%9F%A5%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C/" class="archive-article-date">
-  	<time datetime="2021-08-07T08:34:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Arthas能为你做什么？"><a href="#Arthas能为你做什么？" class="headerlink" title="Arthas能为你做什么？"></a>Arthas能为你做什么？</h1><p><code>Arthas</code> 是Alibaba开源的Java诊断工具，深受开发者喜爱。
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Arthas</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/07/Docker%E4%B8%AD%E4%BD%BF%E7%94%A8Arthas%E6%8E%92%E6%9F%A5%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-IDEA优秀插件推荐" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/07/IDEA%E4%BC%98%E7%A7%80%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/">IDEA优秀插件推荐</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/07/IDEA%E4%BC%98%E7%A7%80%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/" class="archive-article-date">
-  	<time datetime="2021-08-07T06:48:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="版本控制"><a href="#版本控制" class="headerlink" title="版本控制"></a>版本控制</h1><h2 id="GitToolBox"><a href="#GitToolBox" class="headerlink" title="GitToolBox"></a>GitToolBox</h2><blockquote>
-<p>提升 Git 使用效率</p>
-<p>使用附加功能扩展 Git 集成</p>
-<p>状态显示、自动获取、内联责备注释、提交对话框完成、背后通知等等…</p>
-</blockquote>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">IDEA插件</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/07/IDEA%E4%BC%98%E7%A7%80%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MapStruct对象转换工具" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/07/MapStruct%E5%AF%B9%E8%B1%A1%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7/">MapStruct对象转换工具</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/07/MapStruct%E5%AF%B9%E8%B1%A1%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7/" class="archive-article-date">
-  	<time datetime="2021-08-07T06:17:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="MapStruct简单介绍"><a href="#MapStruct简单介绍" class="headerlink" title="MapStruct简单介绍"></a><strong>MapStruct简单介绍</strong></h3><p>MapStruct 是一个属性映射工具，只需要定义一个 Mapper 接口，MapStruct 就会自动实现这个映射接口，避免了复杂繁琐的映射实现。
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">MapStruct</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/07/MapStruct%E5%AF%B9%E8%B1%A1%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
+  
+  <div id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+<script>
+var gitalk = new Gitalk({
+  clientID: 'b47262635a67a902a701',
+  clientSecret: '258067c1859f043b9e1fa81a63c45e729b9f158c',
+  repo: 'zhuchaoli.github.io',
+  owner: 'zhuchaoli',
+  admin: ['zhuchaoli'],
+  id: decodeURI(location.pathname),      
+  distractionFreeMode: false 
+})
+gitalk.render('gitalk-container')
+</script>
+
   
 
 
@@ -1036,8 +393,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
