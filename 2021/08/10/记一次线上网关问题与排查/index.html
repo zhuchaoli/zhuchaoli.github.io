@@ -6,18 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Category: 数据结构 | 小朱IT博客</title>
+  <title>记一次线上网关问题与排查 | 小朱IT博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="不积跬步,无以致千里;不积小流,无以成江海">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小朱IT博客">
-<meta property="og:url" content="http://example.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.html">
+  <meta name="description" content="某天下午升级网关和后端服务后，出现大量请求无法通过网关，网关返回http 500异常状态，上线30分钟后进行回滚。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次线上网关问题与排查">
+<meta property="og:url" content="http://example.com/2021/08/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8A%E7%BD%91%E5%85%B3%E9%97%AE%E9%A2%98%E4%B8%8E%E6%8E%92%E6%9F%A5/index.html">
 <meta property="og:site_name" content="小朱IT博客">
-<meta property="og:description" content="不积跬步,无以致千里;不积小流,无以成江海">
+<meta property="og:description" content="某天下午升级网关和后端服务后，出现大量请求无法通过网关，网关返回http 500异常状态，上线30分钟后进行回滚。">
 <meta property="og:locale">
+<meta property="og:image" content="https://p.pstatp.com/origin/pgc-image/c99b83dcfd30497b88cf26fc7c5037f3">
+<meta property="og:image" content="https://p.pstatp.com/origin/pgc-image/814a99c07098492d9c46e4113a551179">
+<meta property="og:image" content="https://p.pstatp.com/origin/pgc-image/0cd4150ef0d04dd492e905c9a9fa0ca5">
+<meta property="og:image" content="https://p.pstatp.com/origin/pgc-image/504a54dfc9474b1080322220ee5b310a">
+<meta property="og:image" content="https://p.pstatp.com/origin/pgc-image/460da4022bfc4e4d9bbda5fbfaeef740">
+<meta property="article:published_time" content="2021-08-10T14:29:09.000Z">
+<meta property="article:modified_time" content="2021-08-10T14:56:39.513Z">
 <meta property="article:author" content="小朱">
-<meta property="article:tag" content="java,php,前端,后端,html,js,antd,react">
+<meta property="article:tag" content="网关故障排查">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p.pstatp.com/origin/pgc-image/c99b83dcfd30497b88cf26fc7c5037f3">
   
     <link rel="alternative" href="/atom.xml" title="小朱IT博客" type="application/atom+xml">
   
@@ -161,71 +169,262 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-记一次线上网关问题与排查" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/08/08/%E4%BB%8B%E7%BB%8D%E5%87%A0%E7%A7%8D%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2021-08-08T09:15:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-08</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/08/08/%E4%BB%8B%E7%BB%8D%E5%87%A0%E7%A7%8D%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">介绍几种排序算法</a>
+    <h1 class="article-title" itemprop="name">
+      记一次线上网关问题与排查
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2021/08/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8A%E7%BD%91%E5%85%B3%E9%97%AE%E9%A2%98%E4%B8%8E%E6%8E%92%E6%9F%A5/" class="archive-article-date">
+  	<time datetime="2021-08-10T14:29:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>某天下午升级网关和后端服务后，出现大量请求无法通过网关，网关返回http 500异常状态，上线30分钟后进行回滚。<span id="more"></span></p>
+<h2 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h2><p>结合当天上线prometheus采集到的数据与测试环境测试结果发现，造成服务不可用的原因是网关频繁触发了熔断器，导致断路器一直处于打开状态，网关无法正常转发请求到后端服务。</p>
+<p>造成熔断器长时间打开的原因有两个，一是高并发（并发1500左右），二是网关配置不合理，两个条件组合造成雪崩效应。</p>
+<p>从prometheus采集到的网关数据来看，上线后30分钟内也不是所有请求都被拒绝了，还是有少量请求成功了，在熔断器关闭短暂的时间内，部分请求能正常被网关转发。</p>
+<p>以下是上次上线时prometheus采集的部分数据指标，由图3能够看出，当时并发量超过1400（7000/5s)。 </p>
+<p><img src="https://p.pstatp.com/origin/pgc-image/c99b83dcfd30497b88cf26fc7c5037f3" alt="1.png"></p>
+<p>图1 上线后网关发生熔断的次数 </p>
+<p><img src="https://p.pstatp.com/origin/pgc-image/814a99c07098492d9c46e4113a551179" alt="2.png"></p>
+<p>图2 由熔断导致异常抛出的次数 </p>
+<p><img src="https://p.pstatp.com/origin/pgc-image/0cd4150ef0d04dd492e905c9a9fa0ca5" alt="3.png"></p>
+<p>图3 断路器状态（一直处于打开状态，服务没有恢复） </p>
+<p><img src="https://p.pstatp.com/origin/pgc-image/504a54dfc9474b1080322220ee5b310a" alt="4.png"></p>
+<p>图4 被网关信号量拒绝的请求</p>
+<p> <img src="https://p.pstatp.com/origin/pgc-image/460da4022bfc4e4d9bbda5fbfaeef740" alt="5.png"></p>
+<p>图5 高并发情况下，熔断器无法关闭（测试环境）</p>
+<h2 id="测试记录"><a href="#测试记录" class="headerlink" title="测试记录"></a>测试记录</h2><h4 id="测试环境信息"><a href="#测试环境信息" class="headerlink" title="测试环境信息"></a>测试环境信息</h4><p>k8s环境，3台cce，每台4核8G内存</p>
+<p>api-gateway  3个实例</p>
+<p>cleanup-controller 2个实例</p>
+<p>api-gateway和cleanup-controller使用的镜像都是上次上线出问题的镜像，没有修改代码。</p>
+<h4 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h4><p>测试工具：jmeter</p>
+<p>修改配置前：</p>
+<table>
+<thead>
+<tr>
+<th>并发请求数</th>
+<th>结果</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>500*1</td>
+<td>部分网关结点熔断，且恢复时间长</td>
+<td></td>
+</tr>
+<tr>
+<td>1000*1</td>
+<td>所有服务发生熔断，长时间没有恢复</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>修改配置后：</p>
+<table>
+<thead>
+<tr>
+<th>并发请求数</th>
+<th>结果</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1500*2</td>
+<td>没有发生熔断情况，所有请求正常</td>
+<td>部分请求返回较慢，排队处理</td>
+</tr>
+<tr>
+<td>3000*2</td>
+<td>没有发生熔断情况，所有请求正常</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>将网关以下的两个配置独立出来，与原来的springboot.cloud配置分开，提高网关抗并发能力和容错能力。</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># zuul 单点处理信号量默认100，提高至2000</span></span><br><span class="line"><span class="meta">zuul.semaphore.max-semaphores</span>=<span class="string">2000</span></span><br><span class="line"><span class="comment"># 断路器恢复窗口设置为5秒，原来是3ms</span></span><br><span class="line"><span class="meta">hystrix.command.default.circuitBreaker.sleepWindowInMilliseconds</span>=<span class="string">5000</span></span><br></pre></td></tr></table></figure>
+
+<p>第一个配置max-semaphores是hystrix最大处理信号量（每秒），如果超过了这个数，hystrix会直接拒绝请求，并记入错误次数中，如果5秒内错误超过50，就会发生熔断。这个配置默认是100。另外由于线上配置tomcat线程数是600（server.tomcat.max-threads=600），而信号量使用的是100，远小于最大线程数，这也是容易造成熔断的原因，信号量需要大于最大线程数。</p>
+<p>第二个配置sleepWindowInMilliseconds是发生熔断后的睡眠窗口，过了这个时间窗口，请求才能再次被转发给后端服务。</p>
+<h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><p>为什么zuul+eureka没有问题，zuul+k8s会有问题？</p>
+<p>测试环境zuul+eureka并发1000请求没有压力，而zuul+k8s就会发生异常情况，具体细节未知。因为这次不止是把eureka换成了k8s服务发现，还升级了spring cloud，zuul、hystrix、ribbon这些组件都跟着升级了，猜测应该是spring cloud升级后，熔断机制与旧版有所区别，特别是spring cloud的配置。</p>
+<h2 id="进一步分析"><a href="#进一步分析" class="headerlink" title="进一步分析"></a>进一步分析</h2><p>虽然增大信号量配置能提高网关并发承受能力，但经测试发现，如果并发超过了信号量范围，并持续一段时间，网关会出现挂掉情况（假死，无任何响应）。</p>
+<p>按网关路由转发流程逐个分析zuul、hystrix、ribbon、httpclient源码，并本地debug，最后定位问题出在http线程池上，高并发情况下，很多请求直接抛出异常，导致线程池的连接无法回收，后面的请求无线程可用，进入无限等待状态。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/spring-cloud/spring-cloud-netflix/issues/2814">https://github.com/spring-cloud/spring-cloud-netflix/issues/2814</a></p>
+<p>解决方案是将ribbon默认使用的httpclient换成okhttp。</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 禁用httpclient</span></span><br><span class="line"><span class="meta">ribbon.httpclient.enabled</span>=<span class="string">false</span></span><br><span class="line"><span class="comment"># 启用okhttp</span></span><br><span class="line"><span class="meta">ribbon.okhttp.enabled</span>=<span class="string">true</span></span><br></pre></td></tr></table></figure>
+
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">排序算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">网关故障排查</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/数据结构/" class="article-tag-list-link color5">数据结构</a>
+        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/08/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8A%E7%BD%91%E5%85%B3%E9%97%AE%E9%A2%98%E4%B8%8E%E6%8E%92%E6%9F%A5/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2021/08/09/IDEA-Git-cherry-pick%E5%AE%9E%E7%8E%B0%E5%88%86%E6%94%AF%E7%9A%84%E9%83%A8%E5%88%86%E6%8F%90%E4%BA%A4%E5%90%88%E5%B9%B6%E5%88%B0Master/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">IDEA Git cherry-pick实现分支的部分提交合并到Master</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">原因分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E8%AE%B0%E5%BD%95"><span class="toc-number">2.</span> <span class="toc-text">测试记录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E4%BF%A1%E6%81%AF"><span class="toc-number">2.0.1.</span> <span class="toc-text">测试环境信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C"><span class="toc-number">2.0.2.</span> <span class="toc-text">测试结果</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">3.</span> <span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%96%91%E9%97%AE"><span class="toc-number">4.</span> <span class="toc-text">疑问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E4%B8%80%E6%AD%A5%E5%88%86%E6%9E%90"><span class="toc-number">5.</span> <span class="toc-text">进一步分析</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
+  <div id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+<script>
+var gitalk = new Gitalk({
+  clientID: 'b47262635a67a902a701',
+  clientSecret: '258067c1859f043b9e1fa81a63c45e729b9f158c',
+  repo: 'zhuchaoli.github.io',
+  owner: 'zhuchaoli',
+  admin: ['zhuchaoli'],
+  id: decodeURI(location.pathname),      
+  distractionFreeMode: false 
+})
+gitalk.render('gitalk-container')
+</script>
+
+  
 
 
           </div>
@@ -248,10 +447,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
 		root: "/",
