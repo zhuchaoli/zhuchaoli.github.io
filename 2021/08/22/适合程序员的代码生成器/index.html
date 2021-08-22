@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://zhuchaoli.github.io">
-  <title>Tag: JPA | 小朱IT博客</title>
+  <title>适合程序员的代码生成器 | 小朱IT博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="不积跬步,无以致千里;不积小流,无以成江海">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小朱IT博客">
-<meta property="og:url" content="https://zhuchaoli.github.io/tags/JPA/index.html">
+  <meta name="description" content="简介一个不怎么智能，半手工方式的，但最适合实际开发的java代码生成器 核心理念: 为你生成一切,再根据所需手工copy回来工作区，用最精简的代码完成最核心的功能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="适合程序员的代码生成器">
+<meta property="og:url" content="https://zhuchaoli.github.io/2021/08/22/%E9%80%82%E5%90%88%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8/index.html">
 <meta property="og:site_name" content="小朱IT博客">
-<meta property="og:description" content="不积跬步,无以致千里;不积小流,无以成江海">
+<meta property="og:description" content="简介一个不怎么智能，半手工方式的，但最适合实际开发的java代码生成器 核心理念: 为你生成一切,再根据所需手工copy回来工作区，用最精简的代码完成最核心的功能">
 <meta property="og:locale">
+<meta property="article:published_time" content="2021-08-22T07:52:09.000Z">
+<meta property="article:modified_time" content="2021-08-22T11:36:35.827Z">
 <meta property="article:author" content="小朱">
-<meta property="article:tag" content="java,php,前端,后端,html,js,antd,react">
+<meta property="article:tag" content="代码生成器">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="小朱IT博客" type="application/atom+xml">
@@ -161,48 +163,82 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-适合程序员的代码生成器" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/08/08/%E5%BC%80%E5%90%AFJPA%E5%AE%A1%E8%AE%A1%E5%8A%9F%E8%83%BD%E8%AE%B0%E5%BD%95%E6%93%8D%E4%BD%9C%E6%97%A5%E5%BF%97/" class="archive-article-date">
-  	<time datetime="2021-08-08T10:28:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-08</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/08/08/%E5%BC%80%E5%90%AFJPA%E5%AE%A1%E8%AE%A1%E5%8A%9F%E8%83%BD%E8%AE%B0%E5%BD%95%E6%93%8D%E4%BD%9C%E6%97%A5%E5%BF%97/">开启JPA审计功能记录操作日志</a>
+    <h1 class="article-title" itemprop="name">
+      适合程序员的代码生成器
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2021/08/22/%E9%80%82%E5%90%88%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8/" class="archive-article-date">
+  	<time datetime="2021-08-22T07:52:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>一个不怎么智能，半手工方式的，但最适合实际开发的java代码生成器</p>
+<p><strong>核心理念</strong>: 为你生成一切,再根据所需手工copy回来工作区，用最精简的代码完成最核心的功能 <span id="more"></span></p>
+<h1 id="通常代码生成器存在的问题"><a href="#通常代码生成器存在的问题" class="headerlink" title="通常代码生成器存在的问题"></a>通常代码生成器存在的问题</h1><ul>
+<li>二次开发困难,没有源码可以修改模板文件的model对象等</li>
+<li>过于智能,自动插入我们的项目中,程序员还需考虑旧的代码会不会被覆盖的问题</li>
+<li>生成文件的时候让你选要生成哪些文件,而本生成器只负责生成代码，这样生成器核心十分精简</li>
+<li>没有将存放模板的目录名称及文件名称利用起来,导致还需配置每个模板文件生成的文件名,目录结构等</li>
+</ul>
+<h1 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h1><ul>
+<li>基于FreeMarker模板语言,并且模板易于修改</li>
+<li>基于数据库,内建好数据库的model,并支持多种数据库(mysql,sql server,oracle测试通过)</li>
+<li>半手工方式,生成的代码放在某个目录,再手工拷贝回来工作区</li>
+<li>易于做二次开发,整个生成器本身就是java源代码,源代码核心十分精简,并且鼓励你修改代码,也可以作为任何语言的代码生成器</li>
+<li>配置简单,只有一个配置文件generator.xml</li>
+</ul>
+<h1 id="生成器的运行"><a href="#生成器的运行" class="headerlink" title="生成器的运行"></a>生成器的运行</h1><h2 id="构建项目-编译"><a href="#构建项目-编译" class="headerlink" title="构建项目/编译"></a>构建项目/编译</h2><p>执行 <code>maven_clean_package.cmd</code> 文件或者以下命令进行编译:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean package -DskipTests</span><br></pre></td></tr></table></figure>
+
+<p>编译后的文件在 <code>target/bin</code> 目录下。 目录结构为:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">|--lib\			:依赖库</span><br><span class="line">|--template\		:模板文件</span><br><span class="line">|--generator.xml	:配置文件</span><br><span class="line">|--code-gen.bat		:Win32脚本文件</span><br></pre></td></tr></table></figure>
+
+<h2 id="代码生成"><a href="#代码生成" class="headerlink" title="代码生成"></a>代码生成</h2><h3 id="启动生成器"><a href="#启动生成器" class="headerlink" title="启动生成器"></a>启动生成器</h3><p>将<code>bin</code>目录拷贝到需要的地方, 这就是生成文件需要的东西。</p>
+<p>拷贝好之后, 修改<code>generator.xml</code>,需要修改的 <strong>entry</strong> 包括:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">basepackage</span><br><span class="line">subpackage</span><br><span class="line">jdbc.url</span><br><span class="line">jdbc.username</span><br><span class="line">jdbc.password</span><br></pre></td></tr></table></figure>
+
+<p>双击执行<code>code-gen.bat</code>文件</p>
+<h3 id="使用生成器"><a href="#使用生成器" class="headerlink" title="使用生成器"></a>使用生成器</h3><p>启动之后如果不报错,则提示信息为:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">templateRootDir:E:\00_GIT_ALL\rapid-generator\target\bin\template</span><br><span class="line">Usage:</span><br><span class="line">        gen table_name [include_path]: 根据 table_name 生成</span><br><span class="line">        del table_name [include_path]: 根据 table_name 删除</span><br><span class="line">        gen * [include_path]: 生成所有</span><br><span class="line">        del * [include_path]: 删除对应数据库中所有表的文件</span><br><span class="line">        quit : 退出</span><br><span class="line">        [include_path] 可为空,指templateRootDir的子目录,例如: 1. dao  2. dao/**,service/**</span><br><span class="line">please input command:_</span><br></pre></td></tr></table></figure>
+
+<p>根据提示, 输入 <code>gen *</code> 回车,则对所有表进行生成。</p>
+<p>输入 <code>gen 表名</code> 则是生成单个表。</p>
+<p>生成之后的目录默认为 <code>generator-output</code></p>
+<p>生成完毕之后,因为这是一个半自动生成器,所以需要手工拷贝代码。</p>
+<p>这也是合理的,因为代码开发是程序员的事。 这不是自动编译或者发布</p>
+<h1 id="git代码"><a href="#git代码" class="headerlink" title="git代码"></a>git代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/zhuchaoli/code-generator">https://github.com/zhuchaoli/code-generator</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/yuchenggroup/rapid-generator">https://github.com/yuchenggroup/rapid-generator</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JPA</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">代码生成器</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -215,17 +251,136 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://zhuchaoli.github.io/2021/08/22/%E9%80%82%E5%90%88%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2021/08/12/Github%E4%B9%8B%E4%BC%98%E7%A7%80%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Github之优秀知识文档</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%9A%E5%B8%B8%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">通常代码生成器存在的问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%89%B9%E6%80%A7"><span class="toc-number">3.</span> <span class="toc-text">特性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%99%A8%E7%9A%84%E8%BF%90%E8%A1%8C"><span class="toc-number">4.</span> <span class="toc-text">生成器的运行</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE-%E7%BC%96%E8%AF%91"><span class="toc-number">4.1.</span> <span class="toc-text">构建项目&#x2F;编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90"><span class="toc-number">4.2.</span> <span class="toc-text">代码生成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-number">4.2.1.</span> <span class="toc-text">启动生成器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-number">4.2.2.</span> <span class="toc-text">使用生成器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git%E4%BB%A3%E7%A0%81"><span class="toc-number">5.</span> <span class="toc-text">git代码</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
+  <div id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+<script>
+var gitalk = new Gitalk({
+  clientID: 'b47262635a67a902a701',
+  clientSecret: '258067c1859f043b9e1fa81a63c45e729b9f158c',
+  repo: 'zhuchaoli.github.io',
+  owner: 'zhuchaoli',
+  admin: ['zhuchaoli'],
+  id: decodeURI(location.pathname),      
+  distractionFreeMode: false 
+})
+gitalk.render('gitalk-container')
+</script>
+
+  
 
 
           </div>
@@ -248,9 +403,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
